@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resources</title>
+</head>
+<body>
+    <h1>Resources</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Available From</th>
+            <th>Action</th>
+        </tr>
+        {% for resource in resources %}
+        <tr>
+            <td>{{ resource.name }}</td>
+            <td>{{ resource.description }}</td>
+            <td>{{ resource.available_from }}</td>
+            <td>
+                <form action="{% url 'book_resource' resource.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Book for Me</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

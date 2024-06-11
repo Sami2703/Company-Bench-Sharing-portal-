@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Bookings</title>
+</head>
+<body>
+    <h1>My Bookings</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Booked Date</th>
+            <th>Action</th>
+        </tr>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.resource.name }}</td>
+            <td>{{ booking.resource.description }}</td>
+            <td>{{ booking.booked_date }}</td>
+            <td>
+                {% if not booking.released_date %}
+                <form action="{% url 'release_resource' booking.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Release Resource</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
